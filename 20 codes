@@ -1,0 +1,556 @@
+1. #include<iostream>
+using namespace std;
+int main(){
+    int n; cin >> n;
+    int arr[n][n];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>arr[i][j];
+        }
+    }
+    int k=arr[0][0];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(arr[i][j]<20){
+                if(k<arr[i][j]){
+                    k=arr[i][j];
+                }
+            }
+        }
+    }
+    cout<<k;
+}
+2.#include<iostream>
+using namespace std;
+class CalendarEvent{
+    public:
+    int a,b,c,d,e;
+    string f;
+    CalendarEvent(int a,int b,int c,int d,int e,string f){
+        this->a=a;
+        this->b=b;
+        this->c=c;
+        this->d=d;
+        this->e=e;
+        this->f=f;
+    }
+    void display(){
+        cout<<"Event Date: "<<a<<"/"<<b<<"/"<<c<<endl;
+        cout<<"Event Time: "<<d<<":"<<e<<endl;
+        cout<<"Description: "<<f<<endl;
+    }
+};
+int main(){
+    int a,b,c,d,e;
+    string f;
+    cin>>a>>b>>c>>d>>e;
+    cin.ignore();
+    getline(cin,f);
+    CalendarEvent m(a,b,c,d,e,f);
+    m.display();
+}
+3. #include<iostream>
+using namespace std;
+class Accounts{
+    public:
+    int a,b,c,d;
+    Accounts(int a,int b,int c,int d){
+        this->a=a;
+        this->b=b;
+        this->c=c;
+        this->d=d;
+    }
+    void display(){
+        cout<<"Employee: "<<a<<endl;
+        cout<<"Salary: "<<b+c-d<<endl;
+    }
+};
+int main(){
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    Accounts m(a,b,c,d);
+    m.display();
+}
+4. #include<iostream>
+using namespace std;
+class abc{
+    public:
+    int a,b;
+    abc(int a,int b){
+        this->a=a;
+        this->b=b;
+    }
+    int operator+(){
+        return a+b;
+    }
+    int operator-(){
+        return a-b;
+    }
+};
+int main(){
+    int a,b,sum,diff; cin >> a >> b;
+    abc m(a,b);
+    sum=+m;
+    diff=-m;
+    cout<<"Sum = "<<sum<<endl;
+    cout<<"Difference = "<<diff<<endl;
+}
+5. #include<iostream>
+using namespace std;
+class abc{
+    public:
+    int wheels,body,figure;
+    abc(int a,int b,int c){
+        wheels=a;
+        body=b;
+        figure=c;
+    }
+    void display(){
+        int w=wheels/4;
+        int bo=body;
+        int fi=figure/2;
+        if(bo<w){ 
+            cout<<"Max cars that can be built: "<<bo;
+            
+        }
+        else if(fi<w){
+            cout<<"Max cars that can be built: "<<fi;
+        }
+        else{
+            cout<<"Max cars that can be built: "<<w;
+        }
+}
+};
+int main(){
+    int w, b, f; std::cin >> w >> b >> f;
+    abc m(w,b,f);
+    m.display();
+}
+6. #include<iostream>
+using namespace std;
+class bcd;
+class abc{
+    public:
+    double a,b;
+    abc(double a,double b){
+       this->a=a;
+       this->b=b;
+    }
+    friend void display(abc,bcd);
+};
+class bcd{
+    public:
+    double a,b;
+    bcd(double a,double b){
+       this->a=a;
+       this->b=b;
+    }
+    friend void display(abc,bcd);
+};
+void display(abc k,bcd l){
+    cout<<"Product of the private attributes of the two objects: "<<k.a*k.b*l.a*l.b<<endl;
+}
+int main(){	
+    double val1,val2,val3,val4;
+    std::cin >> val1 >> val2 >> val3 >> val4;
+    abc m(val1,val2);
+    bcd l(val3,val4);
+    display(m,l);
+}
+7. #include<iostream>
+using namespace std;
+class abc{
+    public:
+    int a,b;
+    abc(int a,int b){
+        this->a=a;
+        this->b=b;
+    }
+    void add(){
+       cout<<a+b<<endl;
+    }
+};
+class bcd: public abc{
+    public:
+    bcd(int a,int b):abc(a,b){};
+    void sub(){
+        cout<<a-b<<endl;
+    }
+};
+class cde: public abc{
+    public:
+    cde(int a,int b):abc(a,b){};
+    void mul(){
+        cout<<a*b<<endl;
+    }
+};
+int main(){
+    int a,b; std::cin >> a; std::cin >> b;
+    abc m(a,b);
+    bcd h(a,b);
+    cde k(a,b);
+    m.add();
+    h.sub();
+    k.mul();
+}
+8. #include<iostream>
+#include<vector>
+using namespace std;
+class abc{
+    public:
+    virtual bool ismagicsquare()=0;
+};
+class bcd : public abc{
+    public:
+    int a;
+    int diagsum=0;
+    int**arr;
+    bcd(int a){
+        this->a=a;
+        arr=new int*[a];
+        for(int i=0;i<a;i++){
+        arr[i]=new int[a];
+    }
+    }
+    void getarray(){
+        for(int i=0;i<a;i++){
+            for(int j=0;j<a;j++){
+                cin>>arr[i][j];
+            }
+        }
+    }
+    bool ismagicsquare() override{
+        int sum=0;
+        for(int i=0;i<a;i++){
+            sum+=arr[i][0];
+        }
+        for(int i=0;i<a;i++){
+            int rowsum=0;
+            for(int j=0;j<a;j++){
+                rowsum+=arr[j][i];
+            }
+            if(rowsum!=sum)
+            {
+                return false;
+            }
+        }
+        for(int i=0;i<a;i++){
+            int colsum=0;
+            for(int j=0;j<a;j++){
+                colsum+=arr[j][i];
+            }
+            if(colsum!=sum)
+            {
+                return false;
+            }
+        }
+        for(int i=0;i<a;i++){
+            diagsum+=arr[i][i];
+        }
+        if(diagsum!=sum)
+            {
+                return false;
+            }
+        diagsum=0;
+        for(int i=0;i<a;i++){
+            diagsum+=arr[i][a-i-1];
+        }
+        if(diagsum!=sum)
+            {
+                return false;
+            }
+            return true;
+    }
+};
+int main(){
+    int n; cin >> n;
+    bcd m(n);
+    m.getarray();
+    if(m.ismagicsquare()){
+        cout<<"The matrix is a magic square."<<endl;
+    }
+    else{
+        cout<<"The matrix is not a magic square."<<endl;
+    }
+}
+9. #include<iostream>
+#include<stdexcept>
+using namespace std;
+int main(){
+    try{
+        int numerator,denominator;
+        cin >> numerator; cin >> denominator;
+        cin>>numerator>>denominator;
+        if(denominator==0){
+            throw "Division by zero is not allowed.";
+        }
+        else
+        {
+        int c=numerator/denominator;
+        cout<<"Result of division: "<<c<<endl;
+        }
+    }
+    catch(const char* e){
+        cout<<"Error: "<<e<<endl;
+    }
+    cout<<"Program finished execution."<<endl;
+}
+10. #include<iostream>
+#include<vector>
+using namespace std;
+int main(){
+    vector<int>vec;
+    int num;
+    while(true){
+        std::cin >> num;
+        if(num<0){
+            break;
+        }
+        vec.push_back(num);
+    }
+    double n=vec.size();
+    double sum=0;
+    for(int i=0;i<n;i++)
+    {
+    sum+=vec[i];
+    }
+    if(sum>0){
+        double m=sum/n;
+        cout<<"Sum: "<<sum<<endl;
+        cout<<"Average: "<<m<<endl;
+    }
+    else{
+        cout<<"No positive integers entered.";
+    }
+}
+11. #include<iostream>
+#include<vector>
+using namespace std;
+template<typename iterator>
+int accumalate(iterator start,iterator end){
+    using ValueType = typename iterator_traits<iterator>::value_type;
+    ValueType sum= ValueType();
+    for(iterator it=start;it !=end;it++){
+        sum+=*it;
+    }
+    return sum;
+}
+using namespace std;
+int main(){
+    int n;
+    std::cin >> n;
+    vector<int>vec(n);
+    for(int i=0;i<n;i++){
+        cin>>vec[i];
+    }
+    auto sum=accumalate(vec.begin(),vec.end());
+    cout<<"Accumulated sum: "<<sum<<endl;
+}
+12. #include<iostream>
+using namespace std;
+int main(){
+    float item1, item2, discount;
+    cin >> item1 >> item2 >> discount;
+    cout<<"Total Amount: "<<item1+item2<<endl;
+    cout<<"Discount Price: "<<((item1+item2)-((item1+item2)*(discount/100)))<<endl;
+    cout<<"Amount Saved: "<<((item1+item2)-((item1+item2)-((item1+item2)*(discount/100))))<<endl;
+}
+13. #include<iostream>
+using namespace std;
+int main(){
+    int marks;
+    cin >> marks;
+    if(marks<0||marks>100){
+         cout<<"Invalid marks. Please enter a valid score between 0 and 100"<<endl;
+    }
+    else if(marks>=95){
+        cout<<"Student Grade: A Grade"<<endl;
+    }
+    else if(marks>=80&&marks<95){
+        cout<<"Student Grade: B Grade"<<endl;
+    }
+    else if(marks>=60&&marks<80){
+        cout<<"Student Grade: C Grade"<<endl;
+    }
+    else if(marks>=50&&marks<60){
+        cout<<"Student Grade: Just Pass"<<endl;
+    }
+    else if(marks<50){
+        cout<<"Student Grade: Fail"<<endl;
+    }
+}
+14. #include<iostream>
+#include<iomanip>
+using namespace std;
+class Shape; class Circle; class Triangle;
+class Shape {
+    public:
+    virtual void getarea() const=0;
+};
+class Circle: public Shape
+{
+    public:
+    float r;
+    Circle(float r1):r(r1){}
+    void getarea() const override{
+        cout<<"Circle Area: "<<3.14159*r*r<<endl;
+    }
+};
+class Rectangle: public Shape
+{
+    public:
+    float l,b;
+    Rectangle(float l1,float b1):l(l1),b(b1){}
+    void getarea() const override{
+        cout<<"Rectangle Area: "<<l*b<<endl;
+    }
+};
+class Triangle : public Shape
+{
+    public:
+    float b,h;
+    Triangle(float b1,float h1):b(b1),h(h1){}
+    void getarea() const override{
+        cout<<"Triangle Area: "<<(b*h)/2<<endl;
+    }
+};
+int main(){
+    float a,b,c,d,e;
+    cin>>a>>b>>c>>d>>e;
+    Circle c1(a);
+    Rectangle r1(b,c);
+    Triangle t1(d,e);
+    Shape *arr[3]= {&c1, &r1, &t1};
+    for(int i=0;i<3;++i){
+        arr[i]->getarea();
+    }
+}
+15. #include<iostream>
+using namespace std;
+void calculateSum(int N){
+    int sum=0;
+    for(int i=0;i<=N;i++){
+        sum+=i;
+    }
+    cout<<"The sum of all numbers from 1 to "<<N<<" is: "<<sum<<endl;
+}
+int main(){
+    int N;
+    cin >> N;
+    calculateSum(N);
+}
+16. #include<iostream>
+#include<fstream>
+#include<sstream>
+#include<string>
+using namespace std;
+int main(){
+    string a;
+    cin>>a;
+    cin.ignore();
+    ofstream file(a);
+    if(file.is_open())
+    {
+    string mn;
+    getline(cin,mn);
+    file<<mn;
+    file.close();
+    }
+    else{
+        cout<<"Error in file opening"<<endl;
+    }
+    ifstream file1(a);
+    if(file1.is_open())
+    {
+    string mn1;
+    getline(file1,mn1);
+    int b=mn1.length();
+    cout<<b<<endl;
+    file1.close();
+    }
+    else{
+        cout<<"Error in file opening"<<endl;
+    }
+}
+17. #include<iostream>
+using namespace std;
+void swapUsingPointers(int* ptr1, int* ptr2){
+    int temp=*ptr1;
+    *ptr1=*ptr2;
+    *ptr2=temp;
+}
+int main(){
+    int a,b;
+    cin>>a>>b;
+    cout<<"Before swapping:"<<endl;
+    cout<<"First number: "<<a<<endl;
+    cout<<"Second number: "<<b<<endl;
+    swapUsingPointers(&a,&b);
+    cout<<"After swapping:"<<endl;
+    cout<<"First number: "<<a<<endl;
+    cout<<"Second number: "<<b<<endl;
+}
+18. #include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    string input;
+    std::cin >> input;
+    char b[20];
+    int n=input.length();
+    int j=0;
+    for(int i=n-1;i>=0;i--){
+        b[j]=input[i];
+        j++;
+    }
+    if(input==b){
+        cout<<"The string is a palindrome"<<endl;
+    }
+    else{
+        cout<<"The string is not a palindrome"<<endl;
+    }
+}
+19. #include<iostream>
+#include<cmath>
+using namespace std;
+int power(int n){
+    int powe=0;
+    while(pow(2,powe)<=n){
+        powe++;
+    }
+    return pow(2,powe-1);
+}
+int main(){
+    int num;
+    cin>>num;
+    cout<<power(num);
+}
+20. #include<iostream>
+using namespace std;
+class abc{
+    public:
+    virtual void display()=0;
+};
+class bcd{
+    public:
+    double a,b,c;
+    void getvalue(double a1,double b1,double c1){
+        a=a1;
+        b=b1;
+        c=c1;
+    }
+    void display(){
+        cout<<"Balance after deposit: "<<a+b<<endl;
+        cout<<"Balance after withdrawal: "<<a+b-c<<endl;
+    }
+};
+int main(){
+    double initialBalance,depositAmount,withdrawAmount;
+    std::cin >> initialBalance; 
+    std::cin >> depositAmount; 
+    std::cin >> withdrawAmount;
+    bcd m;
+    m.getvalue(initialBalance,depositAmount,withdrawAmount);
+    m.display();
+}
